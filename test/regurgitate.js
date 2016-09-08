@@ -5,6 +5,7 @@
 var regurgitate = require('..')
 var tape = require('tape')
 var promise = require('promises-a')
+var Readable = require('stream').Readable;
 
 
 tape('should append a string', test => {
@@ -76,6 +77,16 @@ tape('should append promise returning dom element', test => {
 })
 
 
+tape('should append stream', (test) => {
+	test.plan(1)
+	var el = document.createElement('div')
+	regurgitate(el, stream())
+	setTimeout(function() {
+		test.equal(el.outerHTML, '<div>hello world</div>')
+	}, 1000)
+})
+
+
 /**
  * Return value after 500ms using promises.
  * 
@@ -90,4 +101,24 @@ function async(value) {
 	def.fulfill(value)
   }, 500)
   return def.promise
+}
+
+
+/**
+ * Return 'hello world' using streams.
+ * 
+ * @param  {Any} value
+ * @return {Promise}
+ * @api private
+ */
+
+function stream() {
+	var rs = new Readable
+	rs._read = function() {}
+	rs.push('hello ')
+	setTimeout(function() {
+		rs.push('world')
+		rs.push(null)
+	}, 500)
+  return rs
 }

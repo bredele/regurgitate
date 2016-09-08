@@ -31,7 +31,13 @@ function transform(value) {
 				tmp.parentElement.replaceChild(transform(data), tmp)
 			})
 			value = tmp
-		}
+		} else if(typeof value.on === 'function') {
+			var tmp = document.createTextNode('')
+      value.on('data', function(data) {
+        tmp.parentElement.insertBefore(document.createTextNode(data), tmp)
+      })
+      value = tmp
+    }
 	} else value = document.createTextNode(value)
 	return value
 }
