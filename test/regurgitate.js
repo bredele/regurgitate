@@ -64,6 +64,18 @@ tape('should append promise returning primitive', test => {
 	})
 })
 
+
+tape('should append promise returning dom element', test => {
+	test.plan(1)
+	var value = async(document.createElement('span'))
+	var el = document.createElement('div')
+	regurgitate(el, value)
+	value.then(function() {
+		test.equal(el.outerHTML, '<div><span></span></div>')
+	})
+})
+
+
 /**
  * Return value after 500ms using promises.
  * 
