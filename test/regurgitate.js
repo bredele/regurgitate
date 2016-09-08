@@ -29,3 +29,12 @@ tape('should append dom element', test => {
 	regurgitate(el, span)
 	test.equal(el.outerHTML, '<div><span></span></div>')
 })
+
+tape('should append function returning primitive', test => {
+	test.plan(1)
+	var el = document.createElement('div')
+	regurgitate(el, function() {
+		return 'hello world'
+	})
+	test.equal(el.outerHTML, '<div>hello world</div>')
+})
