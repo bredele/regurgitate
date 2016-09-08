@@ -1,15 +1,26 @@
 
 
 /**
- * [exports description]
- * @param  {[type]} el [description]
- * @param  {[type]}    [description]
- * @return {[type]}    [description]
+ * Transform any kind of value into a node
+ * that can be inserted into the passed element.
+ * 
+ * @param  {Element} el 
+ * @param  {Any}    
+ * @api public
  */
+
 module.exports = function(el, value) {
   el.appendChild(transform(value))
 }
 
+
+/**
+ * Transform value.
+ * 
+ * @param  {Any|Function|Promise} value 
+ * @return {Element}
+ * @api private       
+ */
 
 function transform(value) {
 	if(typeof value === 'function') value = value()
