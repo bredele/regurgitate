@@ -10,7 +10,7 @@
  */
 
 module.exports = function(el, value) {
-  el.appendChild(transform(value))
+  return el.appendChild(transform(value))
 }
 
 
