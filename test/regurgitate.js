@@ -4,6 +4,8 @@
 
 var regurgitate = require('..')
 var tape = require('tape')
+var promise = require('promises-a')
+
 
 tape('should append a string', test => {
 	test.plan(1)
@@ -50,3 +52,30 @@ tape('should append function returning dom element', test => {
 	})
 	test.equal(el.outerHTML, '<div><span></span></div>')
 })
+
+
+tape('should append promise returning primitive', test => {
+	test.plan(1)
+	var value = async('hello world')
+	var el = document.createElement('div')
+	regurgitate(el, value)
+	value.then(function() {
+		test.equal(el.outerHTML, '<div>hello world</div>')
+	})
+})
+
+/**
+ * Return value after 500ms using promises.
+ * 
+ * @param  {Any} value
+ * @return {Promise}
+ * @api private
+ */
+
+function async(value) {
+  var def = promise()
+  setTimeout(function() {
+	def.fulfill(value)
+  }, 500)
+  return def.promise
+}
