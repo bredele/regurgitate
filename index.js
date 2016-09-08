@@ -7,5 +7,8 @@
  * @return {[type]}    [description]
  */
 module.exports = function(el, value) {
-  el.appendChild(document.createTextNode(value))
+  if(typeof value === 'object') {
+
+  } else value = document.createTextNode(value)
+  el.appendChild(value)
 }
