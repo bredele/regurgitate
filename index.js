@@ -6,6 +6,6 @@
  * @param  {[type]}    [description]
  * @return {[type]}    [description]
  */
-module.exports = function(el, arr, values) {
-
+module.exports = function(el, value) {
+  el.appendChild(document.createTextNode(value))
 }
