@@ -33,12 +33,12 @@ function transform(value) {
 			value = tmp
 		} else if(typeof value.on === 'function') {
 			var tmp = document.createTextNode('')
-      value.on('data', function(data) {
-      	// need to transform? Streams are only text?
-        tmp.parentElement.insertBefore(document.createTextNode(data), tmp)
-      })
-      value = tmp
-    }
+			value.on('data', function(data) {
+				// need to transform? Streams are only text?
+				tmp.parentElement.insertBefore(document.createTextNode(data), tmp)
+			})
+			value = tmp
+		}
 	} else value = document.createTextNode(value)
 	return value
 }
