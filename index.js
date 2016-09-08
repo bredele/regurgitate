@@ -7,6 +7,7 @@
  * @return {[type]}    [description]
  */
 module.exports = function(el, value) {
+  if(typeof value === 'function') value = value()
   if(typeof value === 'object') {
 
   } else value = document.createTextNode(value)
