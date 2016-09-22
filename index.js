@@ -3,9 +3,9 @@
 /**
  * Transform any kind of value into a node
  * that can be inserted into the passed element.
- * 
- * @param  {Element} el 
- * @param  {Any}    
+ *
+ * @param  {Element} el
+ * @param  {Any}
  * @api public
  */
 
@@ -16,15 +16,19 @@ module.exports = function(el, value) {
 
 /**
  * Transform value.
- * 
- * @param  {Any|Function|Promise} value 
+ *
+ * @param  {Any|Function|Promise} value
  * @return {Element}
- * @api private       
+ * @api private
  */
 
 function transform(value) {
 	if(typeof value === 'function') value = value()
-	if(typeof value === 'object') {
+  if(value instanceof Array) {
+    var el = document.createDocumentFragment()
+    value.map(item => el.appendChild(transform(item)))
+    value = el
+  } else if(typeof value === 'object') {
 		if(typeof value.then === 'function') {
 			var tmp = document.createTextNode('')
 			value.then(function(data) {
