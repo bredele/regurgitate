@@ -86,10 +86,17 @@ tape('should append stream', (test) => {
 	}, 1000)
 })
 
+tape('should append array', test => {
+	test.plan(1)
+	var el = document.createElement('div')
+	regurgitate(el, ['hello ', 'world'])
+	test.equal(el.outerHTML, '<div>hello world</div>')
+})
+
 
 /**
  * Return value after 500ms using promises.
- * 
+ *
  * @param  {Any} value
  * @return {Promise}
  * @api private
@@ -106,7 +113,7 @@ function async(value) {
 
 /**
  * Return 'hello world' using streams.
- * 
+ *
  * @param  {Any} value
  * @return {Promise}
  * @api private
